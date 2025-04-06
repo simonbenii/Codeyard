@@ -1,0 +1,213 @@
+html,
+body {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.left {
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.left h1 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+  line-height: 30px;
+  color: #757575;
+  width: 80%;
+}
+
+.left h6 {
+  padding-top: 2vh;
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
+  font-size: 14px;
+  line-height: 19px;
+  color: #a1a1a1;
+  width: 80%;
+}
+
+.left-card {
+  min-width: 70%;
+  border: 2px solid #ffffff;
+  border-radius: 10px;
+  box-shadow: #bebebe 0px 0px 10px 0px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3vh 0;
+}
+
+.right {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-blur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% + 10px);
+  height: calc(100% + 10px);
+  background-image: url("@/assets/background.jpeg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(3px);
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.content-box {
+  padding: 0 15%;
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-box h2 {
+  font-family: "Open Sans", sans-serif;
+  font-size: 30px;
+  line-height: 44px;
+  color: #ffffff;
+  width: 100%;
+  margin: 0;
+  padding-top: 2vh;
+}
+
+.content-box h4 {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
+  font-weight: 100;
+  font-size: 14px;
+  line-height: 30px;
+  color: #ffffff;
+  padding-bottom: 2vh;
+}
+
+.login-button {
+  width: 100px;
+  height: 40px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 30px;
+  color: #ffffff;
+  background: none;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.password-strength-point {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #d4d4d4;
+  display: inline-block;
+}
+
+.password-strength-point.active:nth-child(1) {
+  background-color: #cd4146;
+}
+
+.password-strength-point.active:nth-child(2) {
+  background-color: #f9c466;
+}
+
+.password-strength-point.active:nth-child(3) {
+  background-color: #4a90e0;
+}
+
+.password-strength-point.active:nth-child(4) {
+  background-color: #0a96a3;
+}
+
+.registration-button {
+  background-color: #4a90e2;
+  color: #ffffff;
+  margin: 0px 10% 20px;
+  width: 100px;
+  height: 40px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  line-height: 30px;
+  border: 1px solid #4a90e2;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.registration-button:hover {
+  background-color: #2c74c6;
+}
+
+.footer {
+  padding-top: 3vh;
+  display: flex;
+  width: 70%;
+}
+
+.terms,
+.privacy,
+.more {
+  text-decoration: none;
+  padding-right: 20px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  line-height: 17px;
+  color: #a1a1a1;
+}
+
+.copyright {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto;
+  font-size: 12px;
+  font-weight: 15px;
+  color: #a1a1a1;
+  margin-right: 20px;
+}
+
+/* 📱 Mobil nézet */
+@media (max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 130vh;
+  }
+
+  .left {
+    flex: 1;
+    height: 100vh;
+  }
+
+  .right {
+    flex: 1;
+    height: 100vh;
+  }
+
+  .background-blur {
+    height: 100%;
+  }
+
+  .content {
+    font-size: 20px;
+  }
+}
