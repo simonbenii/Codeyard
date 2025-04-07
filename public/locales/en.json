@@ -9,10 +9,11 @@
   "copyright": "© 2015 Acme, Inc.",
   "signup-button": "Sign up",
   "have-account-title": "Do you already have an account?",
+  "not-have-account-title": "Don’t have an account yet?",
+  "not-have-account-description": "Great to have you here! You can sign up by clicking the button below. Once you’re registered, you’ll be able to log in anytime..",
   "have-account-description": "That's awesome!You can login by clicking the button below. To skip next time, you can ask us to remember you login credentials.",
   "login-button": "Log in",
   "invalid-email-format": "Invalid email format.",
   "signup-success": "Registration successful!",
-  "signup-error": "An error occurred during registration.",
-  "missing-fields": "Please fill out all required fields."
+  "signup-error": "An error occurred during registration."
 }

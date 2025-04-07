@@ -4,6 +4,7 @@ import "@/styles/login.css";
 import Image from "next/image";
 import useFormattedMessage from "@/hooks/useFormatMessage";
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   TextField,
   IconButton,
@@ -15,9 +16,8 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import CircleIcon from "@mui/icons-material/Circle";
-import zxcvbn from "zxcvbn";
 
-export default function Signup() {
+export default function Login() {
   const { formatMessage } = useFormattedMessage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +26,7 @@ export default function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const passwordStrength = zxcvbn(password);
-  const strengthScore = passwordStrength.score;
-
-  const handleSignup = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrorMessage("");
@@ -42,46 +39,41 @@ export default function Signup() {
     }
 
     try {
-      const response = await fetch("/api/signup", {
+      const response = await fetch("/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-          rememberMe,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, rememberMe }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        alert(formatMessage("signup-success"));
+        alert(formatMessage("login-button"));
       } else {
         switch (data.message) {
           case "MISSING":
             setErrorMessage(formatMessage("missing-fields"));
             break;
           default:
-            setErrorMessage(data.message || formatMessage("signup-error"));
+            setErrorMessage(data.message || formatMessage("login-button"));
             break;
         }
       }
     } catch (error) {
-      console.error("API hiba:", error);
-      setErrorMessage(formatMessage("signup-error"));
+      console.error("API error:", error);
+      setErrorMessage(formatMessage("login-button"));
     } finally {
       setIsLoading(false);
     }
   };
+
   return (
     <div className="container">
-      <div className="left">
-        <div className="left-card">
+      <div className="right">
+        <div className="right-card">
           <h1>{formatMessage("welcome")}</h1>
           <h6 style={{ paddingBlockEnd: "4vh" }}>
-            {formatMessage("welcome-registration-title")}
+            {formatMessage("have-account-title")}
           </h6>
           <Box width="80%" mt={0}>
             <TextField
@@ -92,7 +84,6 @@ export default function Signup() {
               onChange={(e) => setEmail(e.target.value)}
               sx={textFieldStyles}
             />
-
             <TextField
               fullWidth
               variant="standard"
@@ -104,31 +95,13 @@ export default function Signup() {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <Box display="flex" paddingBottom={2} alignItems="center">
-                      <IconButton
-                        style={{ color: "#d4d4d4" }}
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                      <Box
-                        display="flex"
-                        flexDirection="column-reverse"
-                        gap={0.5}
-                        alignItems="center"
-                        ml={1}
-                      >
-                        {[...Array(4)].map((_, index) => (
-                          <span
-                            key={index}
-                            className={`password-strength-point ${
-                              index < strengthScore ? "active" : ""
-                            }`}
-                          ></span>
-                        ))}
-                      </Box>
-                    </Box>
+                    <IconButton
+                      style={{ color: "#d4d4d4" }}
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
                   </InputAdornment>
                 ),
               }}
@@ -147,9 +120,7 @@ export default function Signup() {
                   checkedIcon={<CircleIcon />}
                   sx={{
                     color: "#4A90E2",
-                    "&.Mui-checked": {
-                      color: "#4A90E2",
-                    },
+                    "&.Mui-checked": { color: "#4A90E2" },
                   }}
                 />
               }
@@ -175,13 +146,11 @@ export default function Signup() {
             }}
           >
             <button
-              className="registration-button"
-              onClick={handleSignup}
+              className="login-button"
+              onClick={handleLogin}
               disabled={isLoading}
             >
-              {isLoading
-                ? formatMessage("loading")
-                : formatMessage("signup-button")}
+              {isLoading ? "Loading..." : formatMessage("login-button")}
             </button>
           </div>
         </div>
@@ -199,18 +168,18 @@ export default function Signup() {
         </div>
       </div>
 
-      <div className="right">
+      <div className="left">
         <div className="background-blur"></div>
         <div className="content">
           <div className="content-box">
             <Image src="/acme.png" alt="Logo" width={91} height={53} priority />
-            <h2>{formatMessage("have-account-title")}</h2>
-            <h4>{formatMessage("have-account-description")}</h4>
-            <a href="/login">
-              <button className="login-button">
-                {formatMessage("login-button")}
+            <h2>{formatMessage("not-have-account-title")}</h2>
+            <h4>{formatMessage("not-have-account-description")}</h4>
+            <Link href="/">
+              <button className="signup-button">
+                {formatMessage("signup-button")}
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -218,7 +187,6 @@ export default function Signup() {
   );
 }
 
-// Reusable stílus objektum
 const textFieldStyles = {
   fontFamily:
     "-apple-system, system-ui, BlinkMacSystemFont, 'Segoe UI', Roboto",
