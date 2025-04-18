@@ -15,5 +15,10 @@
   "right-div-button": "Log in",
   "invalid-email-format": "Invalid email format.",
   "signup-success": "Registration successful!",
-  "signup-error": "An error occurred during registration."
+  "signup-error": "An error occurred during registration.",
+  "login-success-title": "Login Successful!",
+  "login-success-message": "You have successfully logged in.",
+  "signup-success-title": "Registration Successful",
+  "signup-success-message": "You have successfully registered.",
+  "close": "Close"
 }

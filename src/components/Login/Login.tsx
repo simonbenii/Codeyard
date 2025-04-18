@@ -12,6 +12,11 @@ import {
   Box,
   FormControlLabel,
   Checkbox,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
@@ -25,6 +30,7 @@ export default function Login() {
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,19 +51,8 @@ export default function Login() {
         body: JSON.stringify({ email, password, rememberMe }),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
-        alert(formatMessage("login-success")); // Ez legyen külön kulcs, ha lehet
-      } else {
-        switch (data.message) {
-          case "MISSING":
-            setErrorMessage(formatMessage("missing-fields"));
-            break;
-          default:
-            setErrorMessage(data.message || formatMessage("login-error"));
-            break;
-        }
+        setOpenDialog(true);
       }
     } catch (error) {
       console.error("API error:", error);
@@ -69,6 +64,18 @@ export default function Login() {
 
   return (
     <div className="container">
+      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+        <DialogTitle>{formatMessage("login-success-title")}</DialogTitle>
+        <DialogContent>
+          <p>{formatMessage("login-success-message")}</p>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenDialog(false)} color="primary">
+            {formatMessage("close")}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div className="right">
         <div className="background-blur"></div>
         <div className="content">
@@ -168,7 +175,7 @@ export default function Login() {
             >
               {isLoading
                 ? formatMessage("loading")
-                : formatMessage("login-button")}
+                : formatMessage("right-div-button")}
             </button>
           </div>
         </div>
