@@ -1,6 +1,6 @@
 "use client";
 
-import "@/styles/signup.css";
+import "@/styles/auth.css";
 import Image from "next/image";
 import useFormattedMessage from "@/hooks/useFormatMessage";
 import React, { useState } from "react";
@@ -176,7 +176,7 @@ export default function Signup() {
             }}
           >
             <button
-              className="registration-button"
+              className="left-div-button"
               onClick={handleSignup}
               disabled={isLoading}
             >
@@ -208,8 +208,8 @@ export default function Signup() {
             <h2>{formatMessage("have-account-title")}</h2>
             <h4>{formatMessage("have-account-description")}</h4>
             <Link href="/login">
-              <button className="login-button">
-                {formatMessage("login-button")}
+              <button className="right-div-button">
+                {formatMessage("right-div-button")}
               </button>
             </Link>
           </div>

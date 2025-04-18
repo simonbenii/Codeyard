@@ -1,6 +1,6 @@
 "use client";
 
-import "@/styles/login.css";
+import "@/styles/auth.css";
 import Image from "next/image";
 import useFormattedMessage from "@/hooks/useFormatMessage";
 import React, { useState } from "react";
@@ -48,20 +48,20 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        alert(formatMessage("login-button"));
+        alert(formatMessage("login-success")); // Ez legyen külön kulcs, ha lehet
       } else {
         switch (data.message) {
           case "MISSING":
             setErrorMessage(formatMessage("missing-fields"));
             break;
           default:
-            setErrorMessage(data.message || formatMessage("login-button"));
+            setErrorMessage(data.message || formatMessage("login-error"));
             break;
         }
       }
     } catch (error) {
       console.error("API error:", error);
-      setErrorMessage(formatMessage("login-button"));
+      setErrorMessage(formatMessage("login-error"));
     } finally {
       setIsLoading(false);
     }
@@ -70,7 +70,23 @@ export default function Login() {
   return (
     <div className="container">
       <div className="right">
-        <div className="right-card">
+        <div className="background-blur"></div>
+        <div className="content">
+          <div className="content-box">
+            <Image src="/acme.png" alt="Logo" width={91} height={53} priority />
+            <h2>{formatMessage("not-have-account-title")}</h2>
+            <h4>{formatMessage("not-have-account-description")}</h4>
+            <Link href="/">
+              <button className="right-div-button">
+                {formatMessage("signup-button")}
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="left">
+        <div className="left-card">
           <h1>{formatMessage("welcome")}</h1>
           <h6 style={{ paddingBlockEnd: "4vh" }}>
             {formatMessage("have-account-title")}
@@ -146,11 +162,13 @@ export default function Login() {
             }}
           >
             <button
-              className="login-button"
+              className="left-div-button"
               onClick={handleLogin}
               disabled={isLoading}
             >
-              {isLoading ? "Loading..." : formatMessage("login-button")}
+              {isLoading
+                ? formatMessage("loading")
+                : formatMessage("login-button")}
             </button>
           </div>
         </div>
@@ -165,22 +183,6 @@ export default function Login() {
           <a href="more" className="more">
             ···
           </a>
-        </div>
-      </div>
-
-      <div className="left">
-        <div className="background-blur"></div>
-        <div className="content">
-          <div className="content-box">
-            <Image src="/acme.png" alt="Logo" width={91} height={53} priority />
-            <h2>{formatMessage("not-have-account-title")}</h2>
-            <h4>{formatMessage("not-have-account-description")}</h4>
-            <Link href="/">
-              <button className="signup-button">
-                {formatMessage("signup-button")}
-              </button>
-            </Link>
-          </div>
         </div>
       </div>
     </div>
